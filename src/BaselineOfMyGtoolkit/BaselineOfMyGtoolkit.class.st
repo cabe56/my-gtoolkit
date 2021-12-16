@@ -1,6 +1,6 @@
 Class {
 	#name : #BaselineOfMyGtoolkit,
-	#superclass : #Object,
+	#superclass : #BaselineOf,
 	#category : #BaselineOfMyGtoolkit
 }
 
