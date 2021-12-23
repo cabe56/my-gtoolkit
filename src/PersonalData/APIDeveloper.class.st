@@ -18,7 +18,7 @@ APIDeveloper >> get: aUrl [
 
 { #category : #accessing }
 APIDeveloper >> instanceSettings [
- ^ self get: '/development_settings'
+ ^ self get: '/settings'
 ]
 
 { #category : #accessing }
