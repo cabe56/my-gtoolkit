@@ -33,7 +33,7 @@ Solana >> getAccountInfo: rfWallet [
 | request json |
 	request := self buildMethod:'getAccountInfo' withParam: rfWallet.
 json := self post: request.
-  ^ json 
+  ^ json at: #result
 ]
 
 { #category : #accessing }
@@ -42,7 +42,7 @@ Solana >> getBalance: publicKey [
 	| request json |
 	request := self buildMethod: 'getBalance' withParam: publicKey.
 	json := self post: request.
-	^ (json at: #result) at: #value
+	^ ((json at: #result) at: #value ) / 1000000000.00
 ]
 
 { #category : #accessing }
