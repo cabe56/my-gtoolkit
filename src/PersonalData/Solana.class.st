@@ -93,6 +93,14 @@ Solana >> getTokenAccountBalance: publicKey [
 ]
 
 { #category : #accessing }
+Solana >> getTransaction: aHash [
+
+	| req |
+	req := self buildMethod: 'getTransaction' withParam: aHash.
+	^ self post: req
+]
+
+{ #category : #accessing }
 Solana >> post: request [
 
 	| json |

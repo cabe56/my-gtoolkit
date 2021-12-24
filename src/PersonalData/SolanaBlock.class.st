@@ -9,12 +9,23 @@ Class {
 }
 
 { #category : #accessing }
-SolanaBlock >> getTreeViewFor: aView [
+SolanaBlock >> gtTransactions: aView [
+  <gtView>
+  ^ aView columnedList
+  	title: 'Transactions';
+  	items: [ (self rawData at: #transactions)];
+  	column: 'Status' text: [ :t | ((t at: #meta) at: #status) keys first];
+  	column: 'Fee' text: [ :t | (t at: #meta) at: #fee];
+  	column: 'Raw Data' text: [ :t | t ]
+]
+
+{ #category : #accessing }
+SolanaBlock >> gtTreeViewFor: aView [
 
 	<gtView>
 	^ aView forward
 		  title: 'Tree';
-		  priority: 51;
+		  priority: 1;
 		  object: [ self prettyData];
 		  view: #gtTreeFor:context:
 	
@@ -27,7 +38,7 @@ SolanaBlock >> newMethod [
 
 { #category : #accessing }
 SolanaBlock >> prettyData [
-    newData := rawData.
+    newData := rawData copy.
     newData at: #blockTime put: (self time).
     ^ newData
 ]
