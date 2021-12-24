@@ -12,6 +12,7 @@ Class {
 MyLogEntry class >> fromString: aLine [ 
   |instance|
   instance := self new string: aLine.
+  instance firstWord: instance note substrings first.
   ^ instance.
 ]
 
@@ -26,17 +27,28 @@ MyLogEntry >> dateAndTimeRawData [
 ]
 
 { #category : #accessing }
+MyLogEntry >> firstWord: aString [
+
+	firstWord := aString
+]
+
+{ #category : #accessing }
 MyLogEntry >> note [
 
 	| splitd |
 	splitd := rawData substrings: ']'.
-	^ splitd second
+	^ splitd size > 1 ifTrue: [splitd second] ifFalse: [splitd first].
 ]
 
 { #category : #accessing }
 MyLogEntry >> personReferenced [
 
-	^ self note substrings first
+	| candidates |
+	candidates := self note substrings select: [ :each | 
+		              self class validPersonNicknames includes: each ].
+	^ candidates size = 1
+		  ifTrue: [ candidates first ]
+		  ifFalse: [ UndefinedObject ]
 ]
 
 { #category : #accessing }

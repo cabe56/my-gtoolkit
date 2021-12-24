@@ -2,14 +2,21 @@ Class {
 	#name : #MyLog,
 	#superclass : #Object,
 	#instVars : [
-		'stringContents'
+		'stringContents',
+		'entries'
 	],
 	#category : #PersonalData
 }
 
 { #category : #accessing }
+MyLog >> entries [
+  ^ entries
+]
+
+{ #category : #accessing }
 MyLog >> filePath: aString [ 
   stringContents := aString asFileReference contents.
+  entries := self lines collect: [ :l | MyLogEntry fromString: l].
   ^ self.
 ]
 
