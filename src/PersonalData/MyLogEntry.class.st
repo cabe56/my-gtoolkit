@@ -22,6 +22,16 @@ MyLogEntry class >> validPersonNicknames [
 ]
 
 { #category : #accessing }
+MyLogEntry >> date [
+	| y m d splitDate |
+	splitDate := (self dateAndTimeRawData splitOn: ',') first splitOn: '/'.
+	y := splitDate at: 3.
+	m := splitDate at: 2.
+	d := splitDate at: 1.
+	^ Date year: y month: m day: d.
+]
+
+{ #category : #accessing }
 MyLogEntry >> dateAndTimeRawData [
   ^ (rawData regex: '\[.*\]' matchesCollect: [:r | r ]) first
 ]
@@ -30,6 +40,11 @@ MyLogEntry >> dateAndTimeRawData [
 MyLogEntry >> firstWord: aString [
 
 	firstWord := aString
+]
+
+{ #category : #accessing }
+MyLogEntry >> newMethod [
+	"This is a new method"
 ]
 
 { #category : #accessing }
