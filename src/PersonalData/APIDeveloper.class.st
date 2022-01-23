@@ -10,9 +10,11 @@ Class {
 { #category : #accessing }
 APIDeveloper >> get: aUrl [
 
-	| fullUrl json |
+	| fullUrl json client |
 	fullUrl := self rootUrl , aUrl.
-	json := ZnClient new get: fullUrl.
+	client := ZnClient new.
+	client timeout: 200.
+	json := client get: fullUrl.
 	^ STON fromString: json.
 ]
 
