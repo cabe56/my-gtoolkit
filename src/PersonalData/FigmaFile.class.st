@@ -22,12 +22,25 @@ FigmaFile >> comments [
 ]
 
 { #category : #accessing }
+FigmaFile >> commentsArray [
+
+	| commentArray sorted |
+	commentArray := comments.
+	sorted := commentArray sorted: [ :a :b | 
+		          (a at: #created_at) < (b at: #created_at) ].
+	^ sorted collect: [ :c | 
+		  (c at: #created_at) , ' - ' , ((c at: #user) at: #handle) , ' - '
+		  , (c at: #message) ]
+]
+
+{ #category : #accessing }
 FigmaFile >> fetchComments [
 
-	| client |
+	| client contents |
 	client := ZnClient new.
-	client headerAt: 'X-FIGMA-TOKEN' add: figmaToken.
-	comments := STON fromString: client get: 'https://api.figma.com/v1/files/',key,'/comments'.
+	contents :=  client headerAt: 'X-FIGMA-TOKEN' add: figmaToken;
+		get: 'https://api.figma.com/v1/files/',key,'/comments'.
+	comments := (STON fromString: contents) at: #comments.
 ]
 
 { #category : #accessing }
